@@ -1,9 +1,13 @@
 from fastapi import FastAPI
+# Import our new router from the api folder
+from backend.api.health import router as health_router
 
-# 1. Initialize the FastAPI application
-app = FastAPI(title="DevPilot AI API")
+# 1. Initialize the main FastAPI application
+app = FastAPI(
+    title="DevPilot AI API",
+    version="1.0.0",
+    description="The backend engine for DevPilot AI"
+)
 
-# 2. Create our first "Route" or "Endpoint"
-@app.get("/")
-async def root():
-    return {"message": "Welcome to DevPilot AI Backend! The server is alive."}
+# 2. Plug the router into the main app
+app.include_router(health_router, prefix="/api/health", tags=["Health"])
