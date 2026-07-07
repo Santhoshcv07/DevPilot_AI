@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/04 FastAPI/04.03_Data_Validation_Pydantic.md.md",
+                "file": "docs/04 FastAPI/04.04_Configuration_and_Secrets.md.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "04.03_Data_Validation_Pydantic.md"
+              "title": "04.04_Configuration_and_Secrets.md"
             }
           }
         ]
@@ -180,21 +180,22 @@
       "bases:Create new base": false
     }
   },
-  "active": "48c8b969ddd12999",
+  "active": "527406f0b9f01d87",
   "lastOpenFiles": [
-    "backend/core/__pycache__/config.cpython-311.pyc",
-    "backend/core/__pycache__",
-    "backend/core/config.py",
-    "frontend",
-    "venv/Lib/site-packages/pydantic_settings-2.14.2.dist-info/licenses/LICENSE",
-    "venv/Lib/site-packages/pydantic_settings-2.14.2.dist-info/WHEEL",
-    "venv/Lib/site-packages/pydantic_settings-2.14.2.dist-info/REQUESTED",
-    "venv/Lib/site-packages/pydantic_settings-2.14.2.dist-info/RECORD",
-    "venv/Lib/site-packages/pydantic_settings-2.14.2.dist-info/METADATA",
-    "venv/Lib/site-packages/pydantic_settings-2.14.2.dist-info/licenses",
-    "venv/Lib/site-packages/pydantic_settings-2.14.2.dist-info/INSTALLER",
-    "docs/04 FastAPI/04.02_Clean_Architecture_Routers.md.md",
+    "backend/core/database.py",
+    "venv/Lib/site-packages/sqlalchemy-2.0.51.dist-info/licenses/LICENSE",
+    "venv/Lib/site-packages/sqlalchemy-2.0.51.dist-info/WHEEL",
+    "venv/Lib/site-packages/sqlalchemy-2.0.51.dist-info/top_level.txt",
+    "venv/Lib/site-packages/sqlalchemy-2.0.51.dist-info/REQUESTED",
+    "venv/Lib/site-packages/sqlalchemy-2.0.51.dist-info/RECORD",
+    "venv/Lib/site-packages/sqlalchemy-2.0.51.dist-info/METADATA",
+    "venv/Lib/site-packages/sqlalchemy-2.0.51.dist-info/licenses",
+    "venv/Lib/site-packages/sqlalchemy-2.0.51.dist-info/INSTALLER",
+    "venv/Lib/site-packages/sqlalchemy-2.0.51.dist-info",
+    "venv/Lib/site-packages/sqlalchemy/util/__pycache__/__init__.cpython-311.pyc",
     "docs/04 FastAPI/04.03_Data_Validation_Pydantic.md.md",
+    "docs/04 FastAPI/04.04_Configuration_and_Secrets.md.md",
+    "docs/04 FastAPI/04.02_Clean_Architecture_Routers.md.md",
     "docs/04 FastAPI/04.01_FastAPI_Fundamentals.md",
     "docs/00 Dashboard/00_Master_Dashboard.md",
     "2026-07-07.md",
