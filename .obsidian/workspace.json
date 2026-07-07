@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/04 FastAPI/04.01_FastAPI_Fundamentals.md",
+                "file": "docs/04 FastAPI/04.02_Clean_Architecture_Routers.md.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "04.01_FastAPI_Fundamentals"
+              "title": "04.02_Clean_Architecture_Routers.md"
             }
           }
         ]
@@ -182,19 +182,20 @@
   },
   "active": "527406f0b9f01d87",
   "lastOpenFiles": [
+    "backend/schemas/__pycache__/prompt.cpython-311.pyc",
+    "backend/schemas/__pycache__",
+    "backend/api/__pycache__/chat.cpython-311.pyc",
+    "backend/api/chat.py",
+    "backend/schemas/prompt.py",
+    "docs/04 FastAPI/04.01_FastAPI_Fundamentals.md",
+    "docs/04 FastAPI/04.02_Clean_Architecture_Routers.md.md",
     "backend/api/__pycache__/health.cpython-311.pyc",
     "backend/api/__pycache__",
     "backend/api/health.py",
     "backend/services",
     "backend/schemas",
     "backend/core",
-    "backend/api",
     "docs/00 Dashboard/00_Master_Dashboard.md",
-    "docs/04 FastAPI/04.01_FastAPI_Fundamentals.md",
-    "docs/15 Career Preparation",
-    "docs/14 Interview Notes",
-    "docs/13 Debug Diary",
-    "docs/12 DevPilot AI Architecture",
     "2026-07-07.md",
     "Untitled.md"
   ]
