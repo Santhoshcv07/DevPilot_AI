@@ -7,6 +7,10 @@ class Settings(BaseSettings):
     # Add the database URL here. Pydantic will pull it from the .env file.
     database_url: str
 
+    # Add these two new lines:
+    secret_key: str
+    access_token_expire_minutes: int = 60 # The keycard expires in 1 hour
+
     class Config:
         env_file = ".env"
 
