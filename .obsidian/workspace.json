@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/04 FastAPI/04.02_Clean_Architecture_Routers.md.md",
+                "file": "docs/04 FastAPI/04.03_Data_Validation_Pydantic.md.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "04.02_Clean_Architecture_Routers.md"
+              "title": "04.03_Data_Validation_Pydantic.md"
             }
           }
         ]
@@ -180,21 +180,22 @@
       "bases:Create new base": false
     }
   },
-  "active": "527406f0b9f01d87",
+  "active": "48c8b969ddd12999",
   "lastOpenFiles": [
-    "backend/schemas/__pycache__/prompt.cpython-311.pyc",
-    "backend/schemas/__pycache__",
-    "backend/api/__pycache__/chat.cpython-311.pyc",
-    "backend/api/chat.py",
-    "backend/schemas/prompt.py",
-    "docs/04 FastAPI/04.01_FastAPI_Fundamentals.md",
+    "backend/core/__pycache__/config.cpython-311.pyc",
+    "backend/core/__pycache__",
+    "backend/core/config.py",
+    "frontend",
+    "venv/Lib/site-packages/pydantic_settings-2.14.2.dist-info/licenses/LICENSE",
+    "venv/Lib/site-packages/pydantic_settings-2.14.2.dist-info/WHEEL",
+    "venv/Lib/site-packages/pydantic_settings-2.14.2.dist-info/REQUESTED",
+    "venv/Lib/site-packages/pydantic_settings-2.14.2.dist-info/RECORD",
+    "venv/Lib/site-packages/pydantic_settings-2.14.2.dist-info/METADATA",
+    "venv/Lib/site-packages/pydantic_settings-2.14.2.dist-info/licenses",
+    "venv/Lib/site-packages/pydantic_settings-2.14.2.dist-info/INSTALLER",
     "docs/04 FastAPI/04.02_Clean_Architecture_Routers.md.md",
-    "backend/api/__pycache__/health.cpython-311.pyc",
-    "backend/api/__pycache__",
-    "backend/api/health.py",
-    "backend/services",
-    "backend/schemas",
-    "backend/core",
+    "docs/04 FastAPI/04.03_Data_Validation_Pydantic.md.md",
+    "docs/04 FastAPI/04.01_FastAPI_Fundamentals.md",
     "docs/00 Dashboard/00_Master_Dashboard.md",
     "2026-07-07.md",
     "Untitled.md"
