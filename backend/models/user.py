@@ -1,6 +1,8 @@
 from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from backend.core.database import Base
+
 
 # 1. Inherit from the Base blueprint we made in database.py
 class User(Base):
@@ -14,3 +16,5 @@ class User(Base):
     
     # Automatically record exactly when this user was created
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    chats = relationship("Chat", back_populates="user", cascade="all, delete-orphan")

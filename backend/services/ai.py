@@ -4,30 +4,28 @@ from backend.core.config import settings
 # 1. Initialize the Groq client using our secure API key
 client = Groq(api_key=settings.groq_api_key)
 
-def get_ai_response(prompt: str) -> str:
+def get_ai_response_with_history(conversation_history: list) -> str:
     """
-    Sends a prompt to the Groq API and returns the AI's text response.
+    Sends a full transcript of messages to Groq and returns the AI's next response.
     """
     try:
-        # 2. Make the phone call to the AI model
+        # 1. Start with the master system instructions
+        messages = [
+            {
+                "role": "system",
+                "content": "You are DevPilot AI, an elite coding assistant. Keep answers concise."
+            }
+        ]
+        
+        # 2. Append the entire database history (which includes the newest user prompt)
+        messages.extend(conversation_history)
+
         chat_completion = client.chat.completions.create(
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You are DevPilot AI, an elite, highly intelligent coding assistant. Keep your answers concise and accurate."
-                },
-                {
-                    "role": "user",
-                    "content": prompt,
-                }
-            ],
-            # We are using Meta's LLaMA 3 8B model because it is incredibly fast
-         model="llama-3.1-8b-instant",
+            messages=messages,
+            model="llama-3.1-8b-instant", 
         )
         
-        # 3. Extract the actual text from the complex JSON response
         return chat_completion.choices[0].message.content
         
     except Exception as e:
-        # If the API is down or the key is wrong, fail gracefully
         return f"Error communicating with AI brain: {str(e)}"
