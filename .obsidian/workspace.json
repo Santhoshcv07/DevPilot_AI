@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/12 DevPilot AI Architecture/12.07_File_Uploads_and_RAG.md.md",
+                "file": "docs/12 DevPilot AI Architecture/12.08_Text_Chunking.md.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "12.07_File_Uploads_and_RAG.md"
+              "title": "12.08_Text_Chunking.md"
             }
           }
         ]
@@ -182,10 +182,13 @@
   },
   "active": "527406f0b9f01d87",
   "lastOpenFiles": [
+    "alembic/versions/__pycache__/c2aae23f95fc_add_json_embedding_column.cpython-311.pyc",
+    "alembic/versions/c2aae23f95fc_add_json_embedding_column.py",
+    "docs/12 DevPilot AI Architecture/12.07_File_Uploads_and_RAG.md.md",
+    "docs/12 DevPilot AI Architecture/12.08_Text_Chunking.md.md",
     "backend/services/__pycache__/chunking.cpython-311.pyc",
     "backend/services/chunking.py",
     "docs/12 DevPilot AI Architecture/12.06_Data_Retrieval_API.md.md",
-    "docs/12 DevPilot AI Architecture/12.07_File_Uploads_and_RAG.md.md",
     "backend/api/__pycache__/documents.cpython-311.pyc",
     "backend/api/documents.py",
     "alembic/versions/__pycache__/504f059f0bca_create_documents_tables.cpython-311.pyc",
@@ -195,8 +198,6 @@
     "docs/12 DevPilot AI Architecture/12.05_Stateful_AI_Memory.md.md",
     "docs/12 DevPilot AI Architecture/12.04_API_Orchestration.md.md",
     "backend/schemas/__pycache__/chat.cpython-311.pyc",
-    "backend/api/__pycache__/chats.cpython-311.pyc",
-    "backend/api/chats.py",
     "docs/12 DevPilot AI Architecture/12.03_External_AI_Services.md.md",
     "docs/12 DevPilot AI Architecture/12.02_JWT_and_Login.md.md",
     "docs/04 FastAPI/04.04_Configuration_and_Secrets.md.md",
