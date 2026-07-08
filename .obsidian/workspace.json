@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/12 DevPilot AI Architecture/12.05_Stateful_AI_Memory.md.md",
+                "file": "docs/12 DevPilot AI Architecture/12.06_Data_Retrieval_API.md.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "12.05_Stateful_AI_Memory.md"
+              "title": "12.06_Data_Retrieval_API.md"
             }
           }
         ]
@@ -182,20 +182,22 @@
   },
   "active": "527406f0b9f01d87",
   "lastOpenFiles": [
-    "docs/12 DevPilot AI Architecture/12.04_API_Orchestration.md.md",
+    "backend/api/__pycache__/documents.cpython-311.pyc",
+    "backend/api/documents.py",
+    "alembic/versions/__pycache__/504f059f0bca_create_documents_tables.cpython-311.pyc",
+    "alembic/versions/504f059f0bca_create_documents_tables.py",
+    "backend/models/__pycache__/document.cpython-311.pyc",
+    "backend/models/document.py",
     "docs/12 DevPilot AI Architecture/12.05_Stateful_AI_Memory.md.md",
+    "docs/12 DevPilot AI Architecture/12.06_Data_Retrieval_API.md.md",
+    "docs/12 DevPilot AI Architecture/12.04_API_Orchestration.md.md",
     "backend/schemas/__pycache__/chat.cpython-311.pyc",
     "backend/api/__pycache__/chats.cpython-311.pyc",
     "backend/api/chats.py",
     "backend/schemas/chat.py",
     "alembic/versions/__pycache__/d678dd0bad92_create_chats_and_messages_tables.cpython-311.pyc",
-    "alembic/versions/d678dd0bad92_create_chats_and_messages_tables.py",
-    "backend/models/__pycache__/chat.cpython-311.pyc",
-    "backend/models/chat.py",
     "docs/12 DevPilot AI Architecture/12.03_External_AI_Services.md.md",
     "docs/12 DevPilot AI Architecture/12.02_JWT_and_Login.md.md",
-    "venv/Lib/site-packages/bcrypt/__pycache__/__about__.cpython-311.pyc",
-    "venv/Lib/site-packages/email_validator/__pycache__/__main__.cpython-311.pyc",
     "docs/04 FastAPI/04.04_Configuration_and_Secrets.md.md",
     "docs/00 Dashboard/00_Master_Dashboard.md",
     "docs/06 PostgreSQL/06.02_Models_and_Migrations.md.md",

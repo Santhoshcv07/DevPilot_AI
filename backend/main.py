@@ -5,6 +5,7 @@ from backend.api.chats import router as chats_router
 from backend.api.auth import router as auth_router
 from backend.api.users import router as users_router
 from backend.core.config import settings
+from backend.api.documents import router as documents_router
 
 app = FastAPI(
     title=settings.project_name,
@@ -16,3 +17,4 @@ app.include_router(health_router, prefix="/api/health", tags=["Health"])
 app.include_router(chats_router, prefix="/api/chats", tags=["Chats"]) 
 app.include_router(auth_router, prefix="/api/auth", tags=["Authentication"])
 app.include_router(users_router, prefix="/api/users", tags=["Users"])
+app.include_router(documents_router, prefix="/api/documents", tags=["Documents"])

@@ -18,3 +18,5 @@ class User(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     chats = relationship("Chat", back_populates="user", cascade="all, delete-orphan")
+    # Connect users cleanly to all their uploaded data libraries
+    documents = relationship("Document", back_populates="user", cascade="all, delete-orphan")
