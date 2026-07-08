@@ -2,8 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, status
 from sqlalchemy.orm import Session
 from backend.core.database import get_db
 from backend.models.user import User
-from backend.models.document import Document
+from backend.models.document import Document, DocumentChunk # Added DocumentChunk
 from backend.api.deps import get_current_user
+from backend.services.chunking import get_text_chunks # Imported our new Chef
 
 router = APIRouter()
 
@@ -13,27 +14,16 @@ async def upload_document(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """
-    Accepts a file upload, reads the text content, and saves a tracking record to the database.
-    """
-    # 1. Security/Validation: Only allow text-based files for now
     allowed_types = ["text/plain", "text/markdown", "text/csv"]
     if file.content_type not in allowed_types:
-        raise HTTPException(
-            status_code=400, 
-            detail=f"Unsupported file type: {file.content_type}. Please upload a .txt file."
-        )
+        raise HTTPException(status_code=400, detail="Unsupported file type.")
 
     try:
-        # 2. Read the raw bytes from the uploaded file and decode them into a Python string
         raw_content = await file.read()
         text_content = raw_content.decode("utf-8")
-        
-        # NOTE: We have the text! In the next lesson, we will "chunk" this text.
-        # For now, we will just count how long it is to prove we read it successfully.
         character_count = len(text_content)
 
-        # 3. Create the parent Document record in the database
+        # 1. Create the parent Document record
         new_doc = Document(
             user_id=current_user.id,
             filename=file.filename,
@@ -43,15 +33,30 @@ async def upload_document(
         db.commit()
         db.refresh(new_doc)
 
-        # 4. Return success metadata to the frontend
+        # 2. Chop the text into overlapping pieces
+        chunks = get_text_chunks(text_content, chunk_size=500, chunk_overlap=50)
+
+        # 3. Save every piece to the PostgreSQL database
+        db_chunks = []
+        for index, chunk_text in enumerate(chunks):
+            chunk_record = DocumentChunk(
+                document_id=new_doc.id,
+                content=chunk_text,
+                chunk_index=index
+            )
+            db_chunks.append(chunk_record)
+
+        # Bulk insert all chunks at once for massive performance speed
+        db.add_all(db_chunks) 
+        db.commit()
+
         return {
-            "message": "File uploaded and read successfully",
+            "message": "File uploaded and chunked successfully",
             "document_id": new_doc.id,
             "filename": new_doc.filename,
-            "characters_read": character_count
+            "characters_read": character_count,
+            "chunks_created": len(db_chunks) # Tell the user how many pieces we made!
         }
 
-    except UnicodeDecodeError:
-         raise HTTPException(status_code=400, detail="Could not read the file as plain text. Ensure it is UTF-8 encoded.")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
