@@ -4,15 +4,15 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import os
 import subprocess
-from backend.api.health import router as health_router
+from api.health import router as health_router
 # CHANGED: Import the new chats router (we delete the old chat.py mentally)
-from backend.api.chats import router as chats_router 
-from backend.api.auth import router as auth_router
-from backend.api.users import router as users_router
-from backend.core.config import settings
-from backend.api.documents import router as documents_router
+from api.chats import router as chats_router 
+from api.auth import router as auth_router
+from api.users import router as users_router
+from core.config import settings
+from api.documents import router as documents_router
 
-from backend.core.database import Base, engine
+from core.database import Base, engine
 
 app = FastAPI(
     title=settings.project_name,

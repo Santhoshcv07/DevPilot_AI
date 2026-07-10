@@ -4,11 +4,11 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-from backend.core.config import settings
-from backend.core.database import Base
-from backend.models.user import User 
-from backend.models.chat import Chat, Message# We MUST import the model so Alembic sees it
-from backend.models.document import Document, DocumentChunk
+fromcore.config import settings
+fromcore.database import Base
+frommodels.user import User 
+frommodels.chat import Chat, Message# We MUST import the model so Alembic sees it
+frommodels.document import Document, DocumentChunk
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

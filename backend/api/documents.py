@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, status
 from sqlalchemy.orm import Session
-from backend.core.database import get_db
-from backend.models.user import User
-from backend.models.document import Document, DocumentChunk
-from backend.api.deps import get_current_user
-from backend.services.chunking import get_text_chunks
-from backend.services.embeddings import get_embedding # NEW: Imported the Math Translator
+fromcore.database import get_db
+frommodels.user import User
+frommodels.document import Document, DocumentChunk
+fromapi.deps import get_current_user
+fromservices.chunking import get_text_chunks
+fromservices.embeddings import get_embedding # NEW: Imported the Math Translator
 
 router = APIRouter()
 

@@ -2,15 +2,15 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import StreamingResponse
 import json
 from sqlalchemy.orm import Session
-from backend.core.database import get_db
-from backend.models.user import User
-from backend.models.chat import Chat, Message
-from backend.schemas.chat import ChatResponse, MessageResponse
-from backend.schemas.prompt import PromptRequest
-from backend.api.deps import get_current_user
-from backend.services.ai import get_ai_response_with_history
+fromcore.database import get_db
+frommodels.user import User
+frommodels.chat import Chat, Message
+fromschemas.chat import ChatResponse, MessageResponse
+fromschemas.prompt import PromptRequest
+fromapi.deps import get_current_user
+fromservices.ai import get_ai_response_with_history
 from typing import List
-from backend.services.search import search_document
+fromservices.search import search_document
 
 router = APIRouter()
 
@@ -78,10 +78,10 @@ def send_message(
         yield "data: [DONE]\n\n"
         
         # Save to Database using a fresh session
-        from backend.core.database import SessionLocal
+        fromcore.database import SessionLocal
         db_session = SessionLocal()
         try:
-            from backend.services.ai import clean_chatgpt_style
+            fromservices.ai import clean_chatgpt_style
             full_text = "".join(ai_text_accumulator)
             cleaned_text = clean_chatgpt_style(full_text)
             
@@ -91,7 +91,7 @@ def send_message(
             # Auto-titling if this is the first real exchange
             chat_obj = db_session.query(Chat).filter(Chat.id == chat_id).first()
             if chat_obj and chat_obj.title == "New Conversation":
-                from backend.services.ai import client
+                fromservices.ai import client
                 title_prompt = f"Based on this user message, generate a brief 3 to 4 word descriptive title for this conversation (no quotes, no extra text, just the words): {request.query}"
                 title_res = client.chat.completions.create(
                     model="llama-3.3-70b-versatile",

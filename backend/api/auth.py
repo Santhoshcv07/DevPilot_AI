@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from backend.core.database import get_db
-from backend.schemas.user import UserCreate, UserResponse
-from backend.models.user import User
-from backend.core.security import get_password_hash, verify_password, create_access_token
+fromcore.database import get_db
+fromschemas.user import UserCreate, UserResponse
+frommodels.user import User
+fromcore.security import get_password_hash, verify_password, create_access_token
 
 router = APIRouter()
 
@@ -65,4 +65,4 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Error: {str(e)} | Trace: {error_trace}"
-        )
+        )

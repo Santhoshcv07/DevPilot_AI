@@ -1,7 +1,7 @@
 import numpy as np
 from sqlalchemy.orm import Session
-from backend.models.document import DocumentChunk
-from backend.services.embeddings import get_embedding
+frommodels.document import DocumentChunk
+fromservices.embeddings import get_embedding
 
 def cosine_similarity(vec1: list[float], vec2: list[float]) -> float:
     """

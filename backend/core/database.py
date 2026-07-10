@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from backend.core.config import settings
+fromcore.config import settings
 
 # 1. Create the Engine (The Telephone Line)
 # We feed it the secret database_url from our Pydantic settings.
