@@ -1,8 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-import tkinter as tk
-from tkinter import filedialog
+
 import os
 import subprocess
 from backend.api.health import router as health_router
@@ -22,7 +21,7 @@ app = FastAPI(
 # This tells Python: "It is safe to accept requests from our Next.js frontend"
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # The Next.js URL
+    allow_origins=["*"],  # For production, we will change this to the Vercel URL later
     allow_credentials=True,
     allow_methods=["*"],  # Allow POST, GET, OPTIONS, etc.
     allow_headers=["*"],
@@ -36,31 +35,6 @@ app.include_router(users_router, prefix="/api/users", tags=["Users"])
 app.include_router(documents_router, prefix="/api/documents", tags=["Documents"])
 
 @app.get("/api/workspace/select")
-def select_workspace():
-    """
-    Opens a native OS folder picker window and returns the absolute path.
-    """
-    try:
-        # Create a hidden native window
-        root = tk.Tk()
-        root.attributes("-topmost", True) # Force window to the front
-        root.withdraw() # Hide the ugly main box, only show the file dialog
-        
-        # Open the folder picker
-        folder_path = filedialog.askdirectory(title="Select DevPilot Workspace Folder")
-        
-        # Destroy the window after selection
-        root.destroy()
-        
-        if folder_path:
-            # Replace forward slashes with OS-specific slashes if needed
-            folder_path = os.path.normpath(folder_path)
-            return {"status": "success", "path": folder_path}
-        else:
-            return {"status": "cancelled", "path": None}
-            
-    except Exception as e:
-        return {"status": "error", "error": str(e)}
 
 @app.get("/api/workspace/files")
 def get_workspace_files(path: str):
