@@ -12,10 +12,17 @@ from backend.api.users import router as users_router
 from backend.core.config import settings
 from backend.api.documents import router as documents_router
 
+from backend.core.database import Base, engine
+
 app = FastAPI(
     title=settings.project_name,
     version=settings.project_version,
 )
+
+@app.on_event("startup")
+def on_startup():
+    Base.metadata.create_all(bind=engine)
+
 
 # --- CORS CONFIGURATION ---
 app.add_middleware(
