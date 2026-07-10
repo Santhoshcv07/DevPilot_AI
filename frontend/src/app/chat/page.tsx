@@ -125,7 +125,7 @@ export default function ChatDashboard() {
       if (appMode === "workspace" && activeWorkspace) {
         setIsLoadingFiles(true);
         try {
-          const res = await fetch(`http://127.0.0.1:8000/api/workspace/files?path=${encodeURIComponent(activeWorkspace)}`);
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/workspace/files?path=${encodeURIComponent(activeWorkspace)}`);
           if (res.ok) {
             const data = await res.json();
             setFileTree(data.files);
@@ -145,7 +145,7 @@ export default function ChatDashboard() {
       if (activeFile && activeFile.path) { // Assuming activeFile is now the whole file object
         setIsLoadingContent(true);
         try {
-          const res = await fetch(`http://127.0.0.1:8000/api/workspace/file-content?file_path=${encodeURIComponent(activeFile.path)}`);
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/workspace/file-content?file_path=${encodeURIComponent(activeFile.path)}`);
           if (res.ok) {
             const data = await res.json();
             setActiveFileContent(data.content);
@@ -170,7 +170,7 @@ export default function ChatDashboard() {
     const loadDashboard = async () => {
       try {
         // Fetch User Profile
-        const userRes = await fetch("http://127.0.0.1:8000/api/users/me", {
+        const userRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/users/me`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (userRes.ok) {
@@ -180,7 +180,7 @@ export default function ChatDashboard() {
         }
 
         // Fetch Chat History
-        const chatRes = await fetch("http://127.0.0.1:8000/api/chats/", {
+        const chatRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/chats/`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (chatRes.ok) {
@@ -210,7 +210,7 @@ export default function ChatDashboard() {
     setDropdownOpenChatId(null); // Close any open dropdowns
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/chats/${chatId}/messages`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/chats/${chatId}/messages`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
@@ -230,7 +230,7 @@ export default function ChatDashboard() {
   const createNewChat = async () => {
     const token = localStorage.getItem("devpilot_token");
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/chats/", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/chats/`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -249,7 +249,7 @@ export default function ChatDashboard() {
   const handleDeleteChat = async (chatId: number) => {
     const token = localStorage.getItem("devpilot_token");
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/chats/${chatId}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/chats/${chatId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -277,7 +277,7 @@ export default function ChatDashboard() {
 
     try {
       const token = localStorage.getItem("devpilot_token");
-      const res = await fetch("http://127.0.0.1:8000/api/documents/upload", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/documents/upload`, {
         method: "POST",
         body: formData,
         headers: { Authorization: `Bearer ${token}` }
@@ -299,7 +299,7 @@ export default function ChatDashboard() {
   // --- SET WORKSPACE ---
   const handleSelectWorkspace = async () => {
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/workspace/select");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/workspace/select`);
       if (res.ok) {
         const data = await res.json();
         if (data.path) {
@@ -332,7 +332,7 @@ export default function ChatDashboard() {
     if (!activeFile || !hasUnsavedChanges) return;
     setIsSaving(true);
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/workspace/save-file`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/workspace/save-file`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -377,7 +377,7 @@ export default function ChatDashboard() {
       // Optimistically update UI
       setChats(prev => prev.map(c => c.id === activeChatId ? { ...c, title: generatedTitle } : c));
       // Update backend
-      fetch(`http://127.0.0.1:8000/api/chats/${activeChatId}`, {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/chats/${activeChatId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -404,7 +404,7 @@ export default function ChatDashboard() {
         promptForAI = `${newUserMsg.content}\n\n[SYSTEM NOTE: The user's active workspace absolute path is: ${activeWorkspace}. You must silently generate the requested files into this folder.]`;
       }
 
-      const res = await fetch(`http://127.0.0.1:8000/api/chats/${activeChatId}/messages`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/chats/${activeChatId}/messages`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -483,7 +483,7 @@ export default function ChatDashboard() {
     setIsTyping(true);
 
     try {
-      await fetch(`http://127.0.0.1:8000/api/chats/${activeChatId}/last-exchange`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/chats/${activeChatId}/last-exchange`, {
          method: "DELETE",
          headers: { Authorization: `Bearer ${token}` }
       });
@@ -501,7 +501,7 @@ export default function ChatDashboard() {
         promptForAI = `${newUserMsg.content}\n\n[SYSTEM NOTE: The user's active workspace absolute path is: ${activeWorkspace}. You must silently generate the requested files into this folder.]`;
       }
 
-      const res = await fetch(`http://127.0.0.1:8000/api/chats/${activeChatId}/messages`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/chats/${activeChatId}/messages`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ query: promptForAI, document_id: activeDocumentId }),
@@ -666,7 +666,7 @@ export default function ChatDashboard() {
                     <button 
                       onClick={async () => {
                         try {
-                           const res = await fetch(`http://127.0.0.1:8000/api/workspace/serve`, {
+                           const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/workspace/serve`, {
                              method: "POST",
                              headers: { "Content-Type": "application/json" },
                              body: JSON.stringify({ path: activeWorkspace })
@@ -1126,7 +1126,7 @@ export default function ChatDashboard() {
                              <button 
                                onClick={async () => {
                                  try {
-                                    const res = await fetch(`http://127.0.0.1:8000/api/workspace/serve`, {
+                                    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/workspace/serve`, {
                                       method: "POST",
                                       headers: { "Content-Type": "application/json" },
                                       body: JSON.stringify({ path: activeWorkspace })

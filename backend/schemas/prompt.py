@@ -1,4 +1,4 @@
-from alembic.environment import Optional
+from typing import Optional
 from pydantic import BaseModel, Field
 
 class PromptRequest(BaseModel):
