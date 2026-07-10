@@ -27,13 +27,9 @@ def on_startup():
 # --- CORS CONFIGURATION ---
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "https://dev-pilot-ai-ten.vercel.app",
-    ],
+    allow_origins=["*"], # For production, you will change this to your Vercel URL later
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
