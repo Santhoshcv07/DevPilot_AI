@@ -21,9 +21,12 @@ app = FastAPI(
 # This tells Python: "It is safe to accept requests from our Next.js frontend"
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # For production, we will change this to the Vercel URL later
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
     allow_credentials=True,
-    allow_methods=["*"],  # Allow POST, GET, OPTIONS, etc.
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
