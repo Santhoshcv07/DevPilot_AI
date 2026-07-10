@@ -1,4 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+import tkinter as tk
+from tkinter import filedialog
+import os
+import subprocess
 from backend.api.health import router as health_router
 # CHANGED: Import the new chats router (we delete the old chat.py mentally)
 from backend.api.chats import router as chats_router 
@@ -12,9 +18,151 @@ app = FastAPI(
     version=settings.project_version,
 )
 
+# --- THE CORS BOUNCER ---
+# This tells Python: "It is safe to accept requests from our Next.js frontend"
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # The Next.js URL
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow POST, GET, OPTIONS, etc.
+    allow_headers=["*"],
+)
+
 app.include_router(health_router, prefix="/api/health", tags=["Health"])
 # CHANGED: Plug in the new stateful chats router
 app.include_router(chats_router, prefix="/api/chats", tags=["Chats"]) 
 app.include_router(auth_router, prefix="/api/auth", tags=["Authentication"])
 app.include_router(users_router, prefix="/api/users", tags=["Users"])
 app.include_router(documents_router, prefix="/api/documents", tags=["Documents"])
+
+@app.get("/api/workspace/select")
+def select_workspace():
+    """
+    Opens a native OS folder picker window and returns the absolute path.
+    """
+    try:
+        # Create a hidden native window
+        root = tk.Tk()
+        root.attributes("-topmost", True) # Force window to the front
+        root.withdraw() # Hide the ugly main box, only show the file dialog
+        
+        # Open the folder picker
+        folder_path = filedialog.askdirectory(title="Select DevPilot Workspace Folder")
+        
+        # Destroy the window after selection
+        root.destroy()
+        
+        if folder_path:
+            # Replace forward slashes with OS-specific slashes if needed
+            folder_path = os.path.normpath(folder_path)
+            return {"status": "success", "path": folder_path}
+        else:
+            return {"status": "cancelled", "path": None}
+            
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
+
+@app.get("/api/workspace/files")
+def get_workspace_files(path: str):
+    """
+    Scans the given absolute directory path and returns a structured file tree.
+    """
+    if not path or not os.path.exists(path):
+         raise HTTPException(status_code=400, detail="Invalid workspace path provided.")
+         
+    def build_tree(current_path):
+        tree = []
+        try:
+            # Sort folders first, then files
+            items = sorted(os.listdir(current_path))
+            folders = [i for i in items if os.path.isdir(os.path.join(current_path, i))]
+            files = [i for i in items if os.path.isfile(os.path.join(current_path, i))]
+            
+            for item in folders + files:
+                item_path = os.path.join(current_path, item)
+                
+                # Skip hidden folders like .git, .next, node_modules
+                if item.startswith('.') or item == 'node_modules' or item == '__pycache__':
+                    continue
+                    
+                is_dir = os.path.isdir(item_path)
+                node = {
+                    "name": item,
+                    "path": item_path,
+                    "type": "folder" if is_dir else "file"
+                }
+                
+                if is_dir:
+                    # Recursively build the tree for subfolders
+                    node["children"] = build_tree(item_path)
+                else:
+                    # Try to guess the language for the code editor
+                    ext = item.split('.')[-1].lower() if '.' in item else ''
+                    node["language"] = ext
+                    
+                tree.append(node)
+        except Exception as e:
+            pass # Handle permission errors gracefully
+            
+        return tree
+
+    file_tree = build_tree(path)
+    return {"status": "success", "files": file_tree}
+
+@app.get("/api/workspace/file-content")
+def get_file_content(file_path: str):
+    """
+    Reads the physical text inside a specific file.
+    """
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="File not found")
+        
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        return {"status": "success", "content": content}
+    except Exception as e:
+         raise HTTPException(status_code=500, detail=str(e))
+
+class SaveFileRequest(BaseModel):
+    file_path: str
+    content: str
+
+@app.post("/api/workspace/save-file")
+def save_file_content(req: SaveFileRequest):
+    """
+    Overwrites the specified file with new content from the editor.
+    """
+    if not os.path.exists(req.file_path):
+        raise HTTPException(status_code=404, detail="File not found")
+        
+    try:
+        with open(req.file_path, "w", encoding="utf-8") as f:
+            f.write(req.content)
+        return {"status": "success", "message": "File saved successfully"}
+    except Exception as e:
+         raise HTTPException(status_code=500, detail=str(e))
+
+# --- NEW: SERVE WORKSPACE ---
+server_process = None
+
+class ServeRequest(BaseModel):
+    path: str
+
+@app.post("/api/workspace/serve")
+def serve_workspace(req: ServeRequest):
+    """
+    Kills any existing preview server and starts a new python http.server in the workspace path.
+    """
+    global server_process
+    if not os.path.exists(req.path):
+        raise HTTPException(status_code=404, detail="Workspace path not found")
+    
+    if server_process:
+        try:
+            server_process.kill()
+        except:
+            pass
+            
+    server_process = subprocess.Popen(["python", "-m", "http.server", "8080"], cwd=req.path)
+    return {"status": "success", "url": "http://localhost:8080"}

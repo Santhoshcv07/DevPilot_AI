@@ -2,9 +2,10 @@ from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, status
 from sqlalchemy.orm import Session
 from backend.core.database import get_db
 from backend.models.user import User
-from backend.models.document import Document, DocumentChunk # Added DocumentChunk
+from backend.models.document import Document, DocumentChunk
 from backend.api.deps import get_current_user
-from backend.services.chunking import get_text_chunks # Imported our new Chef
+from backend.services.chunking import get_text_chunks
+from backend.services.embeddings import get_embedding # NEW: Imported the Math Translator
 
 router = APIRouter()
 
@@ -33,16 +34,21 @@ async def upload_document(
         db.commit()
         db.refresh(new_doc)
 
-        # 2. Chop the text into overlapping pieces
+        # 2. Chop the text into overlapping pieces (The Meat Grinder)
         chunks = get_text_chunks(text_content, chunk_size=500, chunk_overlap=50)
 
-        # 3. Save every piece to the PostgreSQL database
+        # 3. Save every piece AND its math to the PostgreSQL database
         db_chunks = []
         for index, chunk_text in enumerate(chunks):
+            
+            # NEW: Translate the English text into a 384-dimensional math vector
+            vector_math = get_embedding(chunk_text)
+            
             chunk_record = DocumentChunk(
                 document_id=new_doc.id,
                 content=chunk_text,
-                chunk_index=index
+                chunk_index=index,
+                embedding=vector_math # NEW: Save the math vector to the database vault!
             )
             db_chunks.append(chunk_record)
 
@@ -51,11 +57,11 @@ async def upload_document(
         db.commit()
 
         return {
-            "message": "File uploaded and chunked successfully",
+            "message": "File uploaded, chunked, and embedded successfully!",
             "document_id": new_doc.id,
             "filename": new_doc.filename,
             "characters_read": character_count,
-            "chunks_created": len(db_chunks) # Tell the user how many pieces we made!
+            "chunks_created": len(db_chunks)
         }
 
     except Exception as e:

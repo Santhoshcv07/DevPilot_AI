@@ -1,0 +1,169 @@
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
+
+@theme {
+  --color-dev-bg: #050506;
+  --color-dev-sidebar: #090A0D;
+  --color-dev-surface: #0D0E12;
+  --color-dev-elevated: #111217;
+  --color-dev-hover: #161820;
+  --color-dev-border: rgba(255,255,255,0.10);
+  --color-dev-bordersubtle: rgba(255,255,255,0.06);
+  --color-dev-textprimary: #F1F3F7;
+  --color-dev-textsecondary: #8B93A1;
+  --color-dev-textmuted: #667085;
+  --color-dev-accent: #7C6CF2;
+  --color-dev-accenthover: #9185F7;
+  --color-dev-accentsoft: rgba(124, 108, 242, 0.12);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "Cascadia Code", "Fira Code", monospace;
+}
+
+/* Custom Scrollbar styling */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #252A36;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #3A4254;
+}
+
+/* =============================================
+   BASE
+   ============================================= */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-dev-bg, #09090b);
+  color: var(--color-dev-textprimary, #ffffff);
+}
+
+/* =============================================
+   TYPOGRAPHY — PROSE (existing)
+   ============================================= */
+
+.prose h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.prose h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.25rem;
+  color: #e4e4e7;
+}
+
+/* =============================================
+   AUTOFILL (existing)
+   ============================================= */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #0D0F14 inset !important;
+  -webkit-text-fill-color: #F1F3F7 !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* =============================================
+   LANDING PAGE — KEYFRAMES
+   ============================================= */
+
+@keyframes metallic-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.metallic-text {
+  animation: metallic-shift 12s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* =============================================
+   LANDING PAGE — UTILITIES
+   ============================================= */
+
+.section-padding {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 9rem;
+    padding-bottom: 9rem;
+  }
+}
+
+.edge-fade-mask {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+/* =============================================
+   ACCESSIBILITY
+   ============================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .metallic-text {
+    animation: none;
+  }
+}
