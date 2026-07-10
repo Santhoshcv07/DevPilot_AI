@@ -1,7 +1,7 @@
 from passlib.context import CryptContext
 from datetime import datetime, timedelta # NEW IMPORT
 import jwt # NEW IMPORT
-fromcore.config import settings # NEW IMPORT
+from core.config import settings # NEW IMPORT
 
 # 1. Initialize the CryptContext using the bcrypt algorithm
 # deprecated="auto" tells passlib to automatically upgrade old hashes if the algorithm gets updated in the future.

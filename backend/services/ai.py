@@ -1,6 +1,6 @@
 from groq import Groq
-fromcore.config import settings
-fromagent_tools import create_local_file
+from core.config import settings
+from agent_tools import create_local_file
 import json
 import re
 

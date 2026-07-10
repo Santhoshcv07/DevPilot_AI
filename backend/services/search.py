@@ -1,7 +1,8 @@
+# pyrefly: ignore [missing-import]
 import numpy as np
 from sqlalchemy.orm import Session
-frommodels.document import DocumentChunk
-fromservices.embeddings import get_embedding
+from models.document import DocumentChunk
+from services.embeddings import get_embedding
 
 def cosine_similarity(vec1: list[float], vec2: list[float]) -> float:
     """

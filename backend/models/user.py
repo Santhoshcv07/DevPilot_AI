@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-fromcore.database import Base
+from core.database import Base
 
 
 # 1. Inherit from the Base blueprint we made in database.py

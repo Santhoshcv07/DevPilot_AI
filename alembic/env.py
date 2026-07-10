@@ -4,11 +4,16 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-fromcore.config import settings
-fromcore.database import Base
-frommodels.user import User 
-frommodels.chat import Chat, Message# We MUST import the model so Alembic sees it
-frommodels.document import Document, DocumentChunk
+# pyrefly: ignore [missing-import]
+from core.config import settings
+# pyrefly: ignore [missing-import]
+from core.database import Base
+# pyrefly: ignore [missing-import]
+from models.user import User 
+# pyrefly: ignore [missing-import]
+from models.chat import Chat, Message# We MUST import the model so Alembic sees it
+# pyrefly: ignore [missing-import]
+from models.document import Document, DocumentChunk
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
