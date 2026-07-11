@@ -2,11 +2,13 @@ from pydantic_settings import BaseSettings
 from pathlib import Path
 
 # Resolve .env relative to this file's location (backend/core/config.py -> project root/.env)
+# On cloud (Render), the .env file won't exist — Pydantic Settings will
+# automatically fall back to reading OS environment variables.
 _env_file_path = Path(__file__).resolve().parent.parent.parent / ".env"
 
 class Settings(BaseSettings):
-    project_name: str
-    project_version: str
+    project_name: str = "DevPilot AI"
+    project_version: str = "1.0.0"
     
     # Add the database URL here. Pydantic will pull it from the .env file.
     database_url: str
@@ -18,6 +20,6 @@ class Settings(BaseSettings):
     groq_api_key: str
 
     class Config:
-        env_file = str(_env_file_path)
+        env_file = str(_env_file_path) if _env_file_path.exists() else None
 
 settings = Settings()

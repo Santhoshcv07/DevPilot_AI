@@ -23,6 +23,10 @@ app = FastAPI(
 def on_startup():
     Base.metadata.create_all(bind=engine)
 
+@app.get("/")
+def root():
+    return {"status": "ok", "app": settings.project_name, "version": settings.project_version}
+
 
 # --- CORS CONFIGURATION ---
 app.add_middleware(
@@ -40,7 +44,6 @@ app.include_router(auth_router, prefix="/api/auth", tags=["Authentication"])
 app.include_router(users_router, prefix="/api/users", tags=["Users"])
 app.include_router(documents_router, prefix="/api/documents", tags=["Documents"])
 
-@app.get("/api/workspace/select")
 
 @app.get("/api/workspace/files")
 def get_workspace_files(path: str):
