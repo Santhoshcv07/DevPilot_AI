@@ -1,4 +1,8 @@
 from pydantic_settings import BaseSettings
+from pathlib import Path
+
+# Resolve .env relative to this file's location (backend/core/config.py -> project root/.env)
+_env_file_path = Path(__file__).resolve().parent.parent.parent / ".env"
 
 class Settings(BaseSettings):
     project_name: str
@@ -14,6 +18,6 @@ class Settings(BaseSettings):
     groq_api_key: str
 
     class Config:
-        env_file = ".env"
+        env_file = str(_env_file_path)
 
 settings = Settings()

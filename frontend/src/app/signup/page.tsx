@@ -17,8 +17,11 @@ export default function SignUp() {
     setIsLoading(true);
     setError('');
 
+    // Remove trailing slash from the base URL if it exists
+    const baseUrl = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000').replace(/\/$/, "");
+
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/auth/signup`, {
+      const res = await fetch(`${baseUrl}/api/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -29,7 +32,6 @@ export default function SignUp() {
         throw new Error(errorData.detail || 'Failed to create account');
       }
 
-      // Success, route to login page
       router.push('/login');
     } catch (err: any) {
       setError(err.message);
@@ -39,12 +41,12 @@ export default function SignUp() {
   };
 
   return (
-    <AuthLayout 
-      title="Create your account" 
+    <AuthLayout
+      title="Create your account"
       subtitle="Start understanding, exploring, and improving your codebase with AI."
     >
       <form className="space-y-5" onSubmit={handleSubmit}>
-        
+
         {error && (
           <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-[13px] px-4 py-2.5 rounded-lg flex items-start gap-2">
             <svg className="w-4 h-4 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
@@ -58,13 +60,13 @@ export default function SignUp() {
             <div className="absolute left-3.5 text-[#8B93A1] group-focus-within:text-[#F7F7F8] transition-colors pointer-events-none">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
             </div>
-            <input 
-              type="email" 
+            <input
+              type="email"
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-transparent text-[#F7F7F8] placeholder-[#8B93A1]/60 text-[14px] py-3 pl-10 pr-4 outline-none autofill:!bg-[#050506] autofill:!text-[#F7F7F8]" 
-              required 
+              className="w-full bg-transparent text-[#F7F7F8] placeholder-[#8B93A1]/60 text-[14px] py-3 pl-10 pr-4 outline-none autofill:!bg-[#050506] autofill:!text-[#F7F7F8]"
+              required
             />
           </div>
         </div>
@@ -73,16 +75,16 @@ export default function SignUp() {
           <label className="text-[13px] font-medium text-[#F7F7F8]">Password</label>
           <div className="relative flex items-center bg-[#050506] border border-white/[0.08] rounded-xl focus-within:border-white/20 focus-within:shadow-[0_0_0_1px_rgba(255,255,255,0.05)] transition-all duration-200 group overflow-hidden">
             <div className="absolute left-3.5 text-[#8B93A1] group-focus-within:text-[#F7F7F8] transition-colors pointer-events-none">
-               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
             </div>
-            <input 
-              type={showPassword ? "text" : "password"} 
+            <input
+              type={showPassword ? "text" : "password"}
               placeholder="Must be at least 8 characters"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-transparent text-[#F7F7F8] placeholder-[#8B93A1]/60 text-[14px] py-3 pl-10 pr-10 outline-none autofill:!bg-[#050506] autofill:!text-[#F7F7F8]" 
-              required 
-              minLength={8} 
+              className="w-full bg-transparent text-[#F7F7F8] placeholder-[#8B93A1]/60 text-[14px] py-3 pl-10 pr-10 outline-none autofill:!bg-[#050506] autofill:!text-[#F7F7F8]"
+              required
+              minLength={8}
             />
             <button type="button" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? "Hide password" : "Show password"} className="absolute right-3.5 text-[#8B93A1] hover:text-[#F7F7F8] transition-colors">
               {showPassword ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg> : <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>}
@@ -90,8 +92,8 @@ export default function SignUp() {
           </div>
         </div>
 
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           disabled={isLoading || !email || !password}
           className="group relative w-full flex items-center justify-center gap-2 bg-[#F7F7F8] hover:bg-white text-[#050506] font-semibold py-3 rounded-xl transition-all duration-200 mt-6 shadow-[0_4px_20px_rgba(255,255,255,0.05)] hover:shadow-[0_4px_20px_rgba(255,255,255,0.1)] hover:-translate-y-[1px] active:translate-y-[0px] disabled:opacity-70 disabled:pointer-events-none"
         >
@@ -113,7 +115,7 @@ export default function SignUp() {
           )}
         </button>
       </form>
-      
+
       <div className="text-center mt-6 text-[13.5px] text-[#8B93A1]">
         Already have an account?{' '}
         <Link href="/login" className="text-[#F7F7F8] hover:text-white font-medium transition-colors relative group">
