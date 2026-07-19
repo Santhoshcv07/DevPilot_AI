@@ -73,7 +73,7 @@ DevPilot AI operates on a modern, decoupled client-server architecture.
 
 ```mermaid
 graph TD
-    subgraph Frontend "Frontend (Next.js)"
+    subgraph Frontend [Frontend Next.js]
         UI[User Interface]
         Editor[Monaco Editor]
         Chat[Chat Interface]
@@ -84,7 +84,7 @@ graph TD
         UI --> Tree
     end
 
-    subgraph Backend "Backend (FastAPI)"
+    subgraph Backend [Backend FastAPI]
         API[API Gateway]
         Auth[Auth Service]
         Work[Workspace Manager]
@@ -95,7 +95,7 @@ graph TD
         API --> AI_Serv
     end
 
-    subgraph External "External Services"
+    subgraph External [External Services]
         DB[(PostgreSQL)]
         Groq[Groq AI Inference]
         Local[Local File System]
