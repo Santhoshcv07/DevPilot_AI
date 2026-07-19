@@ -5,7 +5,7 @@
   <p>Explore your codebase, chat with your documents, and supercharge your workflow with AI.</p>
   
   <p>
-    <a href="https://devpilot-ai-demo.com"><b>View Live Demo</b></a> •
+    <a href="https://dev-pilot-ai-hazel.vercel.app"><b>View Live Demo</b></a> •
     <a href="#-setup--deployment"><b>Quick Start</b></a> •
     <a href="#-contributing"><b>Contribute</b></a>
   </p>
