@@ -60,11 +60,6 @@ Instead of manually searching through hundreds of files, you simply point DevPil
 
 ## 🎯 Use Cases
 
-- **Onboarding New Developers:** Instantly get new team members up to speed by letting them ask questions about the codebase structure and logic.
-- **Debugging Complex Issues:** Trace bugs across multiple files by querying the AI for variable flows and component interactions.
-- **Rapid Prototyping:** Generate boilerplate code, functional components, or API endpoints directly within your workspace.
-- **Documentation Generation:** Automatically generate readmes and inline documentation for undocumented legacy code.
-
 ---
 
 ## 🏗️ Architecture & Workflow
