@@ -37,7 +37,7 @@
 
 ## 🤔 What it does
 
-**DevPilot AI** bridges the gap between large codebases and natural language understanding. It acts as an interactive AI pair programmer that sits right inside your local environment. 
+
 
 Instead of manually searching through hundreds of files, you simply point DevPilot to your local workspace, and it allows you to:
 - **Understand:** Ask questions about complex architectural choices or specific functions.
