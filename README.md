@@ -112,13 +112,7 @@ graph TD
 ```
 
 ### 🔄 Data Flow
-1. **User Action:** The user selects a local folder or sends a prompt in the chat.
-2. **Frontend Processing:** Next.js captures the input and sends an API request to the FastAPI backend.
-3. **Backend Orchestration:** 
-   - The Workspace Manager reads the necessary local files.
-   - The AI Service constructs a prompt combining user intent and file context.
-4. **AI Inference:** The context is securely sent to the Groq API for rapid processing.
-5. **Response & Action:** The generated response is streamed back to the client, displaying answers or opening the Monaco Editor for direct code modifications.
+
 
 ---
 
