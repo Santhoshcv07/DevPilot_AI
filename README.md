@@ -23,15 +23,6 @@
 ---
 
 ## 📑 Table of Contents
-- [🤔 What it does](#-what-it-does)
-- [✨ Key Features](#-key-features)
-- [🎯 Use Cases](#-use-cases)
-- [🏗️ Architecture & Workflow](#-architecture--workflow)
-- [📁 Detailed Project Structure](#-detailed-project-structure)
-- [🚀 Setup & Deployment](#-setup--deployment)
-- [🔮 Future Scope](#-future-scope)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
 
 ---
 
